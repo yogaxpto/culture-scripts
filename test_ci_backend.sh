@@ -2,6 +2,11 @@
 
 set -e
 
+# run django migrations check to ensure that there are no migrations left to create
+cd src || exit 1
+python manage.py makemigrations --check --dry-run
+cd ..
+
 # run black - make sure everyone uses same python style
 black --skip-string-normalization --line-length 120 --check tests
 black --skip-string-normalization --line-length 120 --check src
